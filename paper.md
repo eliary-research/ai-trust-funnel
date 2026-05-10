@@ -1,13 +1,11 @@
 # The AI Trust Funnel: A Spectrum-First Onboarding Study
 
-**Draft v0.1 — 2026-05-08 (pre-empirical-execution)**
+**Draft v0.3.1 — 2026-05-11 (post-empirical-substitution)**
 
-> Status: §1-§3 + §6 framework + §8 limitations pre-drafted. §4 methodology + §5 empirical findings + §7 discussion to be completed after Q0–Q6 query execution (see `queries_template.sql`).
->
-> Pre-draft scope: theory and framework only. All empirical numbers are placeholders cross-referenced to specific queries. Numbers in body text marked `[Q#]` will be substituted with query results in v0.2.
+> Status: §1–§9 fully drafted. §5 empirical findings substituted from Q0–Q6 (executed 2026-05-11 against `prism` Spanner). Central finding: H1 leading hypothesis pending replication at N≥200 — segment-conversion dominance ratio 1.696 (AI-positive 6.41% n=78, AI-skeptical 3.78% n=1,032).
 >
 > Target: arXiv `stat.AP` (primary), `cs.HC` + `cs.SI` cross-list. Venue: ICWSM 2027 / CHI 2027 LBW.
-> Companion paper: EN6 (Signal Inflation Hypothesis) for theoretical foundation; CC6 (Currot mirror) for methodology.
+> Companion papers: EN6 (Signal Inflation Hypothesis) for theoretical foundation; CC6 (Currot mirror) for methodology; CVDA (cross-vendor disagreement atlas) shares the `prism` data substrate at a different unit of analysis.
 
 ---
 
@@ -27,7 +25,7 @@ This paper's empirical anchor is Lucid, a four-vendor multi-AI identity analysis
 
 We make five academic contributions:
 
-1. **A formal three-stage AI Trust Funnel definition** — spectrum start → spectrum complete (analyze) → phone-verify — where each stage transition is a separate trust-cost gate, and the gate where users abandon discriminates between competing explanations of the conversion gap. We additionally identify two adjacent stages (Stage 0 landing visit, Stage 4 repeat session, Stage 5 cross-product transition) that are outside our instrumentation window and are stated as gaps rather than analyzed; the headline funnel claim concerns Stages 1–3.
+1. **A formal three-stage AI Trust Funnel definition** — spectrum start → spectrum complete (analyze) → phone-verify — where each stage transition is a separate trust-cost gate, and the gate where users abandon discriminates between competing explanations of the conversion gap. We additionally identify three adjacent stages (Stage 0 landing visit, Stage 4 repeat session, Stage 5 cross-product transition) that are outside our instrumentation window and are stated as gaps rather than analyzed; the headline funnel claim concerns Stages 1–3.
 
 2. **Agreeable disagreement as pedagogical hook** — operationalizing the EN6 claim (Kim, 2026) that cross-vendor disagreement is a measurable personalization signal single labs cannot self-generate. The framing converts what would normally read as a deficit (4 AIs disagreeing → unreliable) into the engine (4 AIs disagreeing → tell me about myself).
 
@@ -49,7 +47,7 @@ The framework, hypothesis registry (§6), and analytic specifications (`queries_
 
 ### 2.1 AI Resistance and Algorithm Aversion
 
-A robust finding in the algorithm-aversion literature (Dietvorst, Simmons, & Massey, 2015; Logg, Minson, & Moore, 2019) is that users frequently prefer human judgment over algorithmic recommendation even when the algorithm is more accurate. Resistance is heterogeneous: domain familiarity, perceived stakes, and user expertise all moderate it (Burton, Stein, & Jensen, 2020). Recent work has explored the inverse — *algorithm appreciation* in lower-stakes objective tasks (Logg et al., 2019) — but the consumer-AI personalization context, where AI generates subjective interpretation about the user themselves, sits in an under-studied middle zone.
+A robust finding in the algorithm-aversion literature (Dietvorst, Simmons, & Massey, 2015; Logg, Minson, & Moore, 2019; the foundational trust-in-automation framing is Lee & See, 2004) is that users frequently prefer human judgment over algorithmic recommendation even when the algorithm is more accurate. Resistance is heterogeneous: domain familiarity, perceived stakes, and user expertise all moderate it (Burton, Stein, & Jensen, 2020). Recent work has explored the inverse — *algorithm appreciation* in lower-stakes objective tasks (Logg et al., 2019) — but the consumer-AI personalization context, where AI generates subjective interpretation about the user themselves, sits in an under-studied middle zone.
 
 The Lucid spectrum's 4 embedded AI-attitude items measure exactly this middle-zone resistance, operationalized through items asking the user to articulate their stance on AI confidence, AI in personal decisions, and the trust they extend to model output. We treat these items as both measurement (allowing segmentation) and as intervention (the act of articulating a position is itself a treatment, per the well-documented mere-measurement effect in marketing psychology; Morwitz & Fitzsimons, 2004).
 
@@ -114,7 +112,7 @@ Within the 74-question Lucid spectrum, four questions directly measure AI attitu
 
 The full-population Q2 distribution (executed 2026-05-11, n=1,566 analyzed sessions; full table in §5.3) confirms and sharpens the 5/3 schema-check preview (n=1,087): **65.9% are AI-skeptical** (`score_ait` ≤ 3), 29.1% AI-neutral (3 < x < 5), and 5.0% AI-positive (≥ 5); mean 2.618, SD 1.249; mode at the 1.0 bucket (20.2% of analyzed). The skeptical-leaning skew disconfirms the implicit assumption that spectrum-first onboarding selects on AI-friendliness — the surface in fact reaches the resistant segment.
 
-**As intervention.** The act of self-articulating an AI position primes subsequent willingness to engage with AI synthesis (mere-measurement effect, Morwitz & Fitzsimons, 2004; intent-articulation effect, Berinsky, Margolis, & Sances, 2011). This is a treatment that the user does not consciously experience as such; it is embedded inside what the user perceives as a personality test. The treatment is dose-dependent on the user's pre-existing AI-attitude — users with stronger priors should articulate more substantive responses on the four free-text items (`free_answer_1`–`free_answer_4`), and the strength of articulation should predict downstream stage-2 completion.
+**As intervention.** The act of self-articulating an AI position primes subsequent willingness to engage with AI synthesis (mere-measurement effect, Morwitz & Fitzsimons, 2004; intent-articulation effect, Berinsky, Margolis, & Sances, 2011; direct evidence in conversational-AI personality measurement, Peters & Matz, 2024). This is a treatment that the user does not consciously experience as such; it is embedded inside what the user perceives as a personality test. The treatment is dose-dependent on the user's pre-existing AI-attitude — users with stronger priors should articulate more substantive responses on the four free-text items (`free_answer_1`–`free_answer_4`), and the strength of articulation should predict downstream stage-2 completion.
 
 Because the items are simultaneously measurement and treatment, naive analysis would conflate the two: an observed correlation between `score_ait` and Stage-2 completion could reflect either (a) AI-friendlier users complete more (selection on the segment) or (b) the act of articulating an AI position increases completion (treatment effect). We separate the two by exploiting the structural feature that `score_ait` is computed at analysis (Stage 2) but the four AI items are answered earlier in the spectrum. Users who started the spectrum but did not complete it do not have `score_ait` computed, but the raw answers to the four AI items are accessible (status='answering' rows). Comparing item-response distributions across completers vs non-completers separates the selection effect from the treatment effect.
 
@@ -145,7 +143,7 @@ The funnel surfaces of interest are: (Stage 1) spectrum start, (Stage 2) reach a
 
 ### 4.2 Data Sources
 
-We draw on three production tables in the `prism` Spanner database (instance `currot-spanner-prod-bab`), with the data window 2026-04-18 (production deployment) through 2026-05-04 (snapshot date matching the YC application body):
+We draw on three production tables in the `prism` Spanner database (instance `currot-spanner-prod-bab`), with the data window 2026-04-18 (production deployment; meaningful public traffic begins 2026-04-27 per §5.2) through 2026-05-10 (data freeze 2026-05-11):
 
 - **`spectrum_session`** (~3,395 rows in window): primary session-level table with `status` (in `{'answering', 'submitted', 'analyzed', 'complete'}`), `score_ait` (FLOAT64 1–7, computed at analysis), `free_answer_1`–`free_answer_4` (STRING, never exported as raw text), and `created_at` (timestamp). The four status values track Stage 1 → Stage 2 → Stage 3 transitions: `answering` = mid-flow, `submitted` = analysis dispatched, `analyzed` = AI inference complete, `complete` = phone-verified.
 - **`prism_user`**: phone-verified user table. A `LEFT JOIN` from `spectrum_session.user_id` to `prism_user.user_id` yields the Stage 2 → Stage 3 transition flag (verified iff join succeeds).
@@ -295,7 +293,7 @@ For the 4.28% completer-to-signup gap (Q1; 67 of 1,566 analyzed sessions), we fo
 
 **Statement.** Among users who complete the spectrum, residual AI-attitude variance predicts whether they cross the phone-verify gate. The conversion gap is, in large part, an AI-skepticism gap.
 
-**Status as candidate (pre-data).** H1 is the most direct test of Signal Cost / signaling-aversion theory's prediction in this funnel. The 5/3 schema-check preview showed 67% of analyzed users at `score_ait` ≤ 3, indicating the spectrum surface does not select on AI-friendliness (§5.3); whether residual skepticism predicts conversion is a separate empirical question resolved in §5.4. We did not assign quantitative prior probabilities across the five hypotheses (a uniform prior would be uninformative; differentiated priors require justification we could not defend without prior intervention data). The five hypotheses were framed as competing candidate explanations to be ranked by the segment-conversion comparison, not by a prior assignment.
+**Status as candidate (pre-data).** H1 is the most direct test of Signal Cost / signaling-aversion theory (Spence, 1973) in this funnel. The 5/3 schema-check preview showed 67% of analyzed users at `score_ait` ≤ 3, indicating the spectrum surface does not select on AI-friendliness (§5.3); whether residual skepticism predicts conversion is a separate empirical question resolved in §5.4. We did not assign quantitative prior probabilities across the five hypotheses (a uniform prior would be uninformative; differentiated priors require justification we could not defend without prior intervention data). The five hypotheses were framed as competing candidate explanations to be ranked by the segment-conversion comparison, not by a prior assignment.
 
 **Status post-Q4 (2026-05-11 data freeze).** Q4 confirmed the dominant-branch hypothesis: AI-positive sessions (n=78) phone-verify at 6.41%, AI-skeptical (n=1,032) at 3.78%; dominance ratio 1.696 ≥ 1.5 prespecified threshold. **H1 is the leading explanatory factor for the 4.28% conversion gap.** H2 and H4 are retained as plausible secondary contributors operating on the segment-uniform residual that H1 alone does not explain. The Wilson-score 95% CI on the AI-positive rate is [2.7%, 14.0%] vs AI-skeptical [2.7%, 5.1%]; the CIs overlap at boundary, so the segment-difference is at the edge of statistical significance for n=78 in the AI-positive cell; replication at ≥ 200 AI-positive sessions is the planned follow-up.
 
@@ -393,8 +391,6 @@ DeYoung, C. G., Quilty, L. C., & Peterson, J. B. (2007). Between facets and doma
 
 Dietvorst, B. J., Simmons, J. P., & Massey, C. (2015). Algorithm aversion: People erroneously avoid algorithms after seeing them err. *Journal of Experimental Psychology: General*, 144(1), 114–126.
 
-Granger, C. W. J. (1969). Investigating causal relations by econometric models and cross-spectral methods. *Econometrica*, 37(3), 424–438.
-
 Hashimoto, T. B., et al. (2025). Opinion-diversity collapse in language model populations. *arXiv preprint* arXiv:2504.08954.
 
 Karpathy, A. (2025, December). LLM Council: Multi-model debate as a consumer product surface. Personal blog. https://karpathy.ai/
@@ -413,12 +409,6 @@ Logg, J. M., Minson, J. A., & Moore, D. A. (2019). Algorithm appreciation: Peopl
 
 Martin, A. D., Quinn, K. M., & Park, J. H. (2011). MCMCpack: Markov Chain Monte Carlo in R. *Journal of Statistical Software*, 42(9), 1–21.
 
-McAdams, D. P. (2006). The redemptive self: Generativity and the stories Americans live by. *Research in Human Development*, 3(2–3), 81–100.
-
-Mikulincer, M., & Shaver, P. R. (2007). *Attachment in adulthood: Structure, dynamics, and change*. Guilford Press.
-
-Mollick, E., et al. (2025). Centaur or cyborg: Field experiments on knowledge worker productivity with frontier AI. *NBER Working Paper* w33641.
-
 Morwitz, V. G., & Fitzsimons, G. J. (2004). The mere-measurement effect: Why does measuring intentions change actual behavior? *Journal of Consumer Psychology*, 14(1–2), 64–74.
 
 Park, J. H., & Sohn, S.-J. (2020). Detecting structural changes in longitudinal network data. *Bayesian Analysis*, 15(1), 133–157.
@@ -429,21 +419,7 @@ Pataranutaporn, P., et al. (2025). Anti-companion pluralism: Designing AI that r
 
 Peters, H., & Matz, S. C. (2024). Personality measurement and the active articulation of identity in conversational AI. *PNAS Nexus*, 3(11), pgae479.
 
-Reis, H. T., & Shaver, P. (1988). Intimacy as an interpersonal process. In *Handbook of personal relationships* (pp. 367–389). Wiley.
-
 Spence, M. (1973). Job market signaling. *Quarterly Journal of Economics*, 87(3), 355–374.
 
 ---
 
-**End of v0.1 pre-draft.**
-
-Tomorrow afternoon's plan (5/9, 13:00-17:00):
-1. Run Q0 sanity check; reconcile counts vs 5/3 snapshot if drift > 5% (~15 min).
-2. Run Q1, Q2, Q3 (~30 min, results substitute into §5.1, §5.2, §5.3).
-3. Run Q4 — *the central claim* — and per the resolution branch in §5.4, finalize H1 ranking position (~30 min).
-4. Run Q5, Q6 (~20 min).
-5. Substitute results into §5.1–§5.5 (~60 min).
-6. Write §4.1, §4.2, §4.4 with finalized methodology (~45 min).
-7. Polish §1 abstract paragraph + §7 discussion (~30 min).
-
-Total ~3.5h. Targets v0.2 (theory + methodology + empirical) by 5/9 EOD. v0.3 (figures + 5 hypotheses formalized) by 5/12. v0.4 (final) by 5/14.

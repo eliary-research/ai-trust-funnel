@@ -1,8 +1,21 @@
 -- L1 paper query templates
 -- Database: prism (Spanner instance: currot-spanner-prod-bab)
--- Schema verified 2026-05-03: spectrum_session has score_ait (FLOAT64, range 1-7,
---                              n=950 analyzed of 2,737 total) and free_answer_1-4
---                              (STRING(200), n=2,728 of 2,737)
+-- Schema verified 2026-05-03; re-verified 2026-05-11 at v0.3.0 publication:
+--   spectrum_session.status enum is 'answering' / 'submitted' / 'complete'
+--   ('analyzed' is empty in production; 'submitted' carries the analysis-complete role
+--   with score_ait populated). Counts at 2026-05-11 freeze (data window 4/27–5/10):
+--   3,899 total / 1,566 with score_ait / 3,890 with free_answer_1.
+--
+-- Patch history (see v0.3.1 commit log):
+--   v0.1   (2026-05-03): initial template; used 'analyzed' status, ROW_NUMBER,
+--                         SUM(COUNT(*)) OVER ()
+--   v0.3.1 (2026-05-11): Q1+Q6 predicates extended to include 'submitted'.
+--                         Q2 rewritten with CTE pattern (Spanner UNIMPLEMENTED on
+--                         window-aggregate-of-aggregate).
+--                         Q4 rewritten session-level with MAX-JOIN pattern (Spanner
+--                         UNIMPLEMENTED on ROW_NUMBER; user_id is null on pre-verify
+--                         sessions, so user-level DISTINCT collapses 1,566 analyzed
+--                         sessions into ~67 distinct user_ids).
 -- Use these queries during 2026-05-08 → 2026-05-14 cleanup window.
 --
 -- ============================================================================
@@ -50,7 +63,7 @@ WITH session_users AS (
     s.session_id,
     s.status,
     s.created_at,
-    (s.status IN ('analyzed', 'complete')) AS reached_analysis,
+    (s.status IN ('analyzed', 'submitted', 'complete')) AS reached_analysis,
     (pu.user_id IS NOT NULL)               AS phone_verified
   FROM spectrum_session s
   LEFT JOIN prism_user pu ON pu.user_id = s.user_id
@@ -72,14 +85,23 @@ FROM session_users;
 -- Buckets in 0.5 increments across the 1-7 scale.
 -- Output: distribution shape for Figure 3 (histogram).
 -- ----------------------------------------------------------------------------
+-- v0.3.1: Rewritten with CTE pattern. Spanner UNIMPLEMENTED on
+-- `SUM(COUNT(*)) OVER ()` (window-aggregate-of-aggregate).
+WITH bucketed AS (
+  SELECT
+    CAST(FLOOR(score_ait * 2) / 2 AS FLOAT64) AS ait_bucket,
+    COUNT(*)                                  AS sessions
+  FROM spectrum_session
+  WHERE score_ait IS NOT NULL
+  GROUP BY ait_bucket
+),
+tot AS (SELECT SUM(sessions) AS total FROM bucketed)
 SELECT
-  CAST(FLOOR(score_ait * 2) / 2 AS FLOAT64) AS ait_bucket,
-  COUNT(*)                                  AS sessions,
-  ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 2) AS pct
-FROM spectrum_session
-WHERE score_ait IS NOT NULL
-GROUP BY ait_bucket
-ORDER BY ait_bucket;
+  b.ait_bucket,
+  b.sessions,
+  ROUND(100.0 * b.sessions / t.total, 2) AS pct
+FROM bucketed b CROSS JOIN tot t
+ORDER BY b.ait_bucket;
 
 
 -- ----------------------------------------------------------------------------
@@ -113,46 +135,37 @@ ORDER BY sessions DESC;
 --   - Threshold values (5 / 3) are placeholders; final cutoffs in the paper
 --     should be set at the empirical 33rd / 67th percentile of score_ait.
 -- ----------------------------------------------------------------------------
-WITH user_session AS (
-  -- Take each user's most-analyzed session (by ait if any, else latest)
+-- v0.3.1: Rewritten session-level. Two reasons:
+--   (a) Original user-level form via ROW_NUMBER fails on Spanner with
+--       `UNIMPLEMENTED: Unsupported built-in function: ROW_NUMBER`;
+--   (b) `user_id` is null on pre-verify spectrum sessions (only post-phone-verify
+--       sessions have populated user_id), so user-level DISTINCT collapses 1,566
+--       analyzed sessions into ~67 distinct user_ids.
+-- The session-level pattern below treats each analyzed session as the unit; "verified"
+-- = same session's user_id is populated (= the session's user has phone-verified).
+WITH session_ait AS (
   SELECT
+    session_id,
     user_id,
     score_ait,
-    status,
-    ROW_NUMBER() OVER (
-      PARTITION BY user_id
-      ORDER BY (CASE WHEN score_ait IS NOT NULL THEN 1 ELSE 0 END) DESC,
-               created_at DESC
-    ) AS rn
-  FROM spectrum_session
-  WHERE status IN ('analyzed', 'submitted', 'complete')
-),
-user_ait AS (
-  SELECT user_id, score_ait FROM user_session WHERE rn = 1
-),
-user_segment AS (
-  SELECT
-    u.user_id,
-    u.score_ait,
     CASE
-      WHEN u.score_ait IS NULL THEN 'unanalyzed'
-      WHEN u.score_ait <= 3 THEN 'AI_skeptical'
-      WHEN u.score_ait >= 5 THEN 'AI_positive'
+      WHEN score_ait <= 3 THEN 'AI_skeptical'
+      WHEN score_ait >= 5 THEN 'AI_positive'
       ELSE 'AI_neutral'
-    END AS segment,
-    (pu.user_id IS NOT NULL) AS phone_verified
-  FROM user_ait u
-  LEFT JOIN prism_user pu ON pu.user_id = u.user_id
+    END AS segment
+  FROM spectrum_session
+  WHERE score_ait IS NOT NULL
+    AND status IN ('analyzed', 'submitted', 'complete')
 )
 SELECT
   segment,
-  COUNT(*)                                              AS users,
-  COUNTIF(phone_verified)                               AS verified,
-  ROUND(100.0 * COUNTIF(phone_verified) / COUNT(*), 2)  AS conversion_pct,
-  ROUND(AVG(score_ait), 3)                              AS avg_ait
-FROM user_segment
+  COUNT(*)                                                  AS sessions,
+  COUNTIF(user_id IS NOT NULL)                              AS verified,
+  ROUND(100.0 * COUNTIF(user_id IS NOT NULL) / COUNT(*), 2) AS conversion_pct,
+  ROUND(AVG(score_ait), 3)                                  AS avg_ait
+FROM session_ait
 GROUP BY segment
-ORDER BY avg_ait DESC NULLS LAST;
+ORDER BY avg_ait DESC;
 
 
 -- ----------------------------------------------------------------------------
@@ -210,8 +223,8 @@ session_daily AS (
   SELECT
     DATE(created_at, 'UTC')                                 AS d,
     COUNT(*)                                                 AS starts,
-    COUNTIF(status IN ('analyzed','complete'))               AS analyzed,
-    ROUND(100.0 * COUNTIF(status IN ('analyzed','complete')) / COUNT(*), 2)
+    COUNTIF(status IN ('analyzed','submitted','complete'))               AS analyzed,
+    ROUND(100.0 * COUNTIF(status IN ('analyzed','submitted','complete')) / COUNT(*), 2)
                                                              AS reach_pct
   FROM spectrum_session
   WHERE created_at >= TIMESTAMP('2026-04-18')

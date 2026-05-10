@@ -1,0 +1,60 @@
+cff-version: 1.2.0
+title: >-
+  The AI Trust Funnel: Spectrum-First Onboarding for Multi-AI
+  Consumer Products
+message: >-
+  If you use this paper or its associated data, please cite
+  it as below.
+type: article
+authors:
+  - given-names: Chanmin
+    family-names: Kim
+    affiliation: Eliary Inc.
+    email: chanmin@eliary.com
+abstract: >-
+  Multi-AI consumer products face an AI-resistance challenge
+  at onboarding. We document the Three-Stage AI Trust Funnel
+  (Stages 1–3 measurable; Stages 0/4/5 stated explicitly as
+  instrumentation gaps) across 3,899 user sessions over the
+  14-day public-access window (April 27 – May 10, 2026) on
+  Lucid, a four-vendor multi-AI personality-test platform.
+  We frame five testable hypotheses for the 4.28%
+  completer-to-verify conversion gap. The analyzed population
+  is 65.9% AI-skeptical (score_ait ≤ 3, n=1,032 of 1,566),
+  disconfirming the implicit selection assumption that
+  spectrum-first onboarding draws AI-positive users. The
+  central empirical finding is the segment-conversion
+  comparison: AI-positive sessions phone-verify at 6.41%
+  (n=78), AI-skeptical at 3.78% (n=1,032); dominance ratio
+  1.696 places the result in the H1 DOMINANT branch
+  (≥ 1.5 prespecified threshold) — residual AI resistance is
+  a leading explanatory factor for the conversion gap. The
+  paper's contribution is the funnel formalization, the
+  dual-function items methodology, and the five-hypothesis
+  framework for the conversion gap.
+keywords:
+  - AI resistance
+  - multi-AI chat
+  - onboarding
+  - funnel decomposition
+  - signaling theory
+  - personality assessment
+  - spectrum-first onboarding
+license: CC-BY-4.0
+license-url: 'https://creativecommons.org/licenses/by/4.0/'
+date-released: '2026-05-11'
+version: '0.3-empirical-substituted'
+url: 'https://github.com/eliary-research/ai-trust-funnel'
+repository-code: 'https://github.com/eliary-research/ai-trust-funnel'
+preferred-citation:
+  type: article
+  authors:
+    - given-names: Chanmin
+      family-names: Kim
+      affiliation: Eliary Inc.
+  title: >-
+    The AI Trust Funnel: Spectrum-First Onboarding for
+    Multi-AI Consumer Products
+  year: 2026
+  url: 'https://github.com/eliary-research/ai-trust-funnel'
+  notes: 'Working paper, Eliary Inc.; arXiv submission target 2026-05-14.'

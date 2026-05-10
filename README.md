@@ -15,7 +15,7 @@ Spectrum-first onboarding is implicitly an AI-resistance reduction strategy via 
 
 ## Why this paper
 
-Lucid's 2,733 spectrum sessions in 18 days produce a 33% reach-analysis rate but only 2.0% phone-verify conversion (5.7% of completers). Standard product-analytics treatments would call this a UX problem and iterate. We argue that the funnel is itself a research object: spectrum-first surfaces are pre-conversational AI trust-building tools, and the conversion gap reveals which of five candidate frictions dominates. The paper turns Lucid's bottleneck into a measurable phenomenon with a research program — same methodology as CC6 (*The Single-Creator Trap*) on the Currot side.
+Lucid's 3,899 spectrum sessions across the 14-day public-access window (April 27 – May 10, 2026) produce a 40.16% reach-analysis rate (1,566 of 3,899 reach analysis) and a 4.28% completer-to-verify conversion (67 of 1,566). The §5.4 segment-conversion comparison places the result in the H1 DOMINANT branch (dominance ratio 1.696 vs the prespecified ≥ 1.5 threshold; AI-positive 6.41% n=78 vs AI-skeptical 3.78% n=1,032; the AI-positive cell is small-N with overlapping Wilson 95% CIs — replication target N≥200 prespecified). Standard product-analytics treatments would call the conversion gap a UX problem and iterate. We argue that the funnel is itself a research object: spectrum-first surfaces are pre-conversational AI trust-building tools, and segment-level analysis reveals which of five candidate frictions dominates. The paper turns Lucid's bottleneck into a measurable phenomenon with a research program — same methodology as CC6 (*The Single-Creator Trap*) on the Currot side.
 
 ## Companion papers
 

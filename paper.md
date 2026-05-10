@@ -2,7 +2,7 @@
 
 **Draft v0.3.1 — 2026-05-11 (post-empirical-substitution)**
 
-> Status: §1–§9 fully drafted. §5 empirical findings substituted from Q0–Q6 (executed 2026-05-11 against `prism` Spanner). Central finding: H1 leading hypothesis pending replication at N≥200 — segment-conversion dominance ratio 1.696 (AI-positive 6.41% n=78, AI-skeptical 3.78% n=1,032).
+> Status: §1–§9 fully drafted. §5 empirical findings substituted from Q0–Q6 (executed 2026-05-11 against `prism` Spanner). Central finding: **H1 DOMINANT branch** per the §5.0 prespecified threshold (segment-conversion dominance ratio 1.696 ≥ 1.5 prespecified; AI-positive 6.41% n=78, AI-skeptical 3.78% n=1,032). Small-N caveat: AI-positive cell yields Wilson 95% CI [2.7%, 14.0%] overlapping the skeptical CI [2.7%, 5.1%]; replication target N ≥ 200 prespecified (§5.4).
 >
 > Target: arXiv `stat.AP` (primary), `cs.HC` + `cs.SI` cross-list. Venue: ICWSM 2027 / CHI 2027 LBW.
 > Companion papers: EN6 (Signal Inflation Hypothesis) for theoretical foundation; CC6 (Currot mirror) for methodology; CVDA (cross-vendor disagreement atlas) shares the `prism` data substrate at a different unit of analysis.
@@ -61,7 +61,7 @@ Chatbot Arena (Chiang et al., 2024) established consumer-facing multi-AI compari
 
 ### 2.4 Funnel Decomposition in HCI
 
-The HCI literature on conversion funnels (Kohavi, Tang, & Xu, 2020) emphasizes that aggregate conversion-rate optimization frequently misallocates effort across funnel stages. We apply this framework to AI-product onboarding: rather than treating the 5.7% completer-to-signup conversion as a single number to be maximized, we decompose by stage, by user segment, and by candidate friction mechanism. The decomposition is the contribution; the interventions are downstream.
+The HCI literature on conversion funnels (Kohavi, Tang, & Xu, 2020) emphasizes that aggregate conversion-rate optimization frequently misallocates effort across funnel stages. We apply this framework to AI-product onboarding: rather than treating the 4.28% completer-to-verify conversion as a single number to be maximized, we decompose by stage, by user segment, and by candidate friction mechanism. The decomposition is the contribution; the interventions are downstream.
 
 ### 2.5 Gap
 
@@ -73,7 +73,7 @@ No published framework decomposes spectrum-first onboarding for consumer AI prod
 
 ### 3.1 Formal Definition
 
-We define the **AI Trust Funnel** as the user's progression through three measurable stage-transitions (Stages 1 → 2 → 3), each gated by a separate trust cost. Two adjacent stages (Stage 0 landing visit, Stages 4–5 retention/cross-product transition) are stated explicitly as instrumentation gaps rather than analyzed; their inclusion in the funnel diagram below clarifies the broader user journey but the headline claims of this paper concern Stages 1–3 only:
+We define the **AI Trust Funnel** as the user's progression through three measurable stage-transitions (Stages 1 → 2 → 3), each gated by a separate trust cost. Three adjacent stages (Stage 0 landing visit, Stage 4 repeat session, Stage 5 cross-product transition) are stated explicitly as instrumentation gaps rather than analyzed; their inclusion in the funnel diagram below clarifies the broader user journey but the headline claims of this paper concern Stages 1–3 only:
 
 ```
 Stage 0: Landing visit                     (denominator unknown — analytics gap)

@@ -2,7 +2,7 @@
 
 > Kim, C. (2026). *The AI Trust Funnel: Spectrum-First Onboarding for Multi-AI Consumer Products*. Working paper, Eliary Inc.
 
-**Status:** v0.3.3 — empirical findings substituted (Q0–Q6 executed 2026-05-11 against `prism` Spanner; n=3,899 spectrum sessions); 3 rounds of polish-completion cross-verification applied. Target arXiv `stat.AP` submission ~2026-05-14 post-endorsement.
+**Status:** v0.3.4 — empirical findings substituted (Q0–Q6 executed 2026-05-11 against `prism` Spanner; n=3,899 spectrum sessions); 4 rounds of cross-verification applied (Rounds 1-3 polish-completion + Round 4 semantic / statistical-rigor); Katz log-method ratio CI [0.69, 4.18] + Bonferroni-corrected χ² reported. Target arXiv `stat.AP` submission ~2026-05-14 post-endorsement.
 **Target venue:** ICWSM 2027 (full paper) and/or CHI 2027 LBW (4-page early findings).
 **Author:** Chanmin Kim (Eliary Inc.).
 **License:** Paper + data — CC BY 4.0. Code — MIT.
@@ -21,7 +21,7 @@ Lucid's 3,899 spectrum sessions across the 14-day public-access window (April 27
 
 - **CC6 (The Single-Creator Trap)** — Currot empirical mirror. Same researcher, same year, same methodology of prospective platform documentation.
 - **EN6 (Signal Inflation Hypothesis)** — theoretical foundation: cross-vendor disagreement is a personalization signal single labs cannot self-generate. L1 operationalizes this insight as a product hook ("They almost never agree").
-- **EN5 (Signal Cost of Connection)** — preregistered field experiment testing whether the spectrum-completion signal differs in relationship-formation outcome from feed-passive engagement.
+- **EN5 (Signal Cost of Connection)** — preregistered 2×2 field experiment (Currot human-Q × Lucid AI-mixed) testing hypotheses on response latency, social outcome level, relationship formation, self-disclosure, and time-to-churn across structured-intake conditions. OSF preregistration submission target 2026-05-11.
 
 ## Repository contents (planned — populated during 5/8–5/14 cleanup window)
 

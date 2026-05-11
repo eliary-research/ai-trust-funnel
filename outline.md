@@ -1,6 +1,7 @@
 # The AI Trust Funnel — Paper Outline
 
-> v0.1 — 2026-05-03
+> v0.1 — 2026-05-03 (pre-empirical scaffold)
+> **NOTICE**: This is the v0.1 pre-paper outline (2026-05-03 snapshot). All numbers in this file are the pre-empirical anchors used during paper planning (~2,733 sessions, 33% reach-analysis, 5.7% conversion at the 5/3 schema-check preview). The canonical post-empirical numbers (3,899 sessions, 40.16% reach-analysis, 4.28% completer-to-verify; H1 DOMINANT segment-conversion dominance ratio 1.696) are in `paper.md` §5 (v0.3.3). This file is retained for provenance and shows the planning trajectory; do not cite numbers from this file as current state.
 > Status: Outline locked, empirical anchor confirmed, full draft target 5/8–5/14
 > Target: arXiv `stat.AP` (primary), `cs.HC` + `cs.SI` cross-list. ICWSM 2027 / CHI 2027 LBW for venue.
 

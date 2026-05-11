@@ -1,6 +1,6 @@
 # The AI Trust Funnel: A Spectrum-First Onboarding Study
 
-**Draft v0.3.1 — 2026-05-11 (post-empirical-substitution)**
+**Draft v0.3.3 — 2026-05-11 (post-empirical-substitution; 3-round polish-completion verification applied)**
 
 > Status: §1–§9 fully drafted. §5 empirical findings substituted from Q0–Q6 (executed 2026-05-11 against `prism` Spanner). Central finding: **H1 DOMINANT branch** per the §5.0 prespecified threshold (segment-conversion dominance ratio 1.696 ≥ 1.5 prespecified; AI-positive 6.41% n=78, AI-skeptical 3.78% n=1,032). Small-N caveat: AI-positive cell yields Wilson 95% CI [2.7%, 14.0%] overlapping the skeptical CI [2.7%, 5.1%]; replication target N ≥ 200 prespecified (§5.4).
 >
@@ -145,7 +145,7 @@ The funnel surfaces of interest are: (Stage 1) spectrum start, (Stage 2) reach a
 
 We draw on three production tables in the `prism` Spanner database (instance `currot-spanner-prod-bab`), with the data window 2026-04-18 (production deployment; meaningful public traffic begins 2026-04-27 per §5.2) through 2026-05-10 (data freeze 2026-05-11):
 
-- **`spectrum_session`** (~3,395 rows in window): primary session-level table with `status` (in `{'answering', 'submitted', 'analyzed', 'complete'}`), `score_ait` (FLOAT64 1–7, computed at analysis), `free_answer_1`–`free_answer_4` (STRING, never exported as raw text), and `created_at` (timestamp). The four status values track Stage 1 → Stage 2 → Stage 3 transitions: `answering` = mid-flow, `submitted` = analysis dispatched, `analyzed` = AI inference complete, `complete` = phone-verified.
+- **`spectrum_session`** (3,899 rows in window per Q0; see §5.0): primary session-level table with `status` (enum `{'answering', 'submitted', 'analyzed', 'complete'}`; in current production data `'analyzed'` is unpopulated — `'submitted'` carries the analysis-complete role with `score_ait` populated, per §5.0 schema verification), `score_ait` (FLOAT64 1–7, computed at analysis), `free_answer_1`–`free_answer_4` (STRING, never exported as raw text), and `created_at` (timestamp). Status values track Stage 1 → Stage 2 → Stage 3 transitions: `answering` = mid-flow (pre-analysis), `submitted` = analysis-complete (score_ait populated), `complete` = phone-verified.
 - **`prism_user`**: phone-verified user table. A `LEFT JOIN` from `spectrum_session.user_id` to `prism_user.user_id` yields the Stage 2 → Stage 3 transition flag (verified iff join succeeds).
 - **`prism_provider_event`**: per-call AI provider event log with `success` boolean and `created_at`. Used for §5.5's confound-control analysis on AI provider failure rate.
 

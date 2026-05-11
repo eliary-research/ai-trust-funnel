@@ -2,7 +2,7 @@
 
 > Kim, C. (2026). *The AI Trust Funnel: Spectrum-First Onboarding for Multi-AI Consumer Products*. Working paper, Eliary Inc.
 
-**Status:** v0.3 — empirical findings substituted (Q0–Q6 executed 2026-05-11 against `prism` Spanner; n=3,899 spectrum sessions). Target arXiv `stat.AP` submission ~2026-05-14 post-endorsement.
+**Status:** v0.3.3 — empirical findings substituted (Q0–Q6 executed 2026-05-11 against `prism` Spanner; n=3,899 spectrum sessions); 3 rounds of polish-completion cross-verification applied. Target arXiv `stat.AP` submission ~2026-05-14 post-endorsement.
 **Target venue:** ICWSM 2027 (full paper) and/or CHI 2027 LBW (4-page early findings).
 **Author:** Chanmin Kim (Eliary Inc.).
 **License:** Paper + data — CC BY 4.0. Code — MIT.
@@ -31,7 +31,7 @@ L1/
 ├── CITATION.cff          ← citation metadata
 ├── LICENSE               ← MIT (code, prose)
 ├── LICENSE-DATA          ← CC BY 4.0 (data/ directory)
-├── outline.md            ← thesis + 5 contributions + 5 hypotheses + Park expertise hooks
+├── outline.md            ← v0.1 pre-empirical scaffold (2026-05-03); retained for provenance only — numbers reflect pre-empirical 5/3 anchors, canonical post-empirical numbers in paper.md §5
 ├── draft.md              ← target ~10 pages (~5,000-6,000 words), 8 sections
 ├── references.md         ← target 25-30 entries
 ├── data/                 ← Lucid prod query results (anonymized)

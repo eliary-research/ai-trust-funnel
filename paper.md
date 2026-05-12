@@ -1,6 +1,6 @@
 # The AI Trust Funnel: A Spectrum-First Onboarding Study
 
-**Draft v0.3.4 — 2026-05-11 (post-empirical-substitution; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported)**
+**Draft v0.3.5 — 2026-05-12 (post-empirical-substitution + reviewer-anticipated polish; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported; replication confirmation rule prespecified §5.4)**
 
 **Chanmin Kim** · Eliary Inc., Delaware · chanmin@eliary.com
 
@@ -55,7 +55,7 @@ The Lucid spectrum's 4 embedded AI-attitude items measure exactly this middle-zo
 
 ### 2.2 Test-First vs Chat-First Onboarding
 
-Test-first onboarding has precedent: 16Personalities reaches roughly 40 million visits per month on a static-report personality test, demonstrating consumer demand for structured self-discovery without conversational AI. Akinator and similar guess-the-character products demonstrate that long-form structured Q&A can be retained when each step compounds toward a payoff. In the AI-product context, we know of no published study that decomposes the spectrum-first pattern's funnel. The pattern is increasingly common — Character.AI, Replika, and several smaller multi-AI products gate access on a profile-creation step — but the academic literature treats onboarding A/B tests as optimization targets, not as theoretical objects.
+Test-first onboarding has precedent: 16Personalities reaches roughly 40 million visits per month on a static-report personality test, demonstrating consumer demand for structured self-discovery without conversational AI. Akinator and similar guess-the-character products demonstrate that long-form structured Q&A can be retained when each step compounds toward a payoff. Recent work on AI-companionship resistance (Pataranutaporn et al., 2025) frames a related concern: users may resist AI in relational roles even when they would accept it as an analysis tool, which spectrum-first onboarding sidesteps by framing AI output as object-of-comparison rather than relational counterpart. In the AI-product context, we know of no published study that decomposes the spectrum-first pattern's funnel. The pattern is increasingly common — Character.AI, Replika, and several smaller multi-AI products gate access on a profile-creation step — but the academic literature treats onboarding A/B tests as optimization targets, not as theoretical objects.
 
 ### 2.3 Multi-AI Evaluation
 
@@ -290,6 +290,8 @@ We note that absolute numerator counts in the dominant segment are small (5 veri
 None reach significance under Bonferroni correction. The prespecified rule classification (H1 DOMINANT per §5.0 point-estimate threshold) is met, but the conventional Bonferroni-corrected chi-square test (also prespecified in §4.4) does not reject the null hypothesis of equal conversion across segments. Expected count in the AI-positive verified cell (E ≈ 3.09) falls below the Cochran rule-of-thumb threshold of 5; Fisher's exact tests yield qualitatively identical conclusions. Both reports are honest: the prespecified rule was met point-wise, but the precision is insufficient for inferential significance under the prespecified test.
 
 The dominance ratio point estimate (1.696) is the load-bearing finding pending replication; the target N ≥ 200 AI-positive sessions (achievable within 6–10 weeks at current daily volume) is prespecified in §5.0 as the path to inferential definitiveness.
+
+**Replication confirmation rule (pre-specified, 2026-05-12).** At an independent replication with N ≥ 200 AI-positive sessions, H1 DOMINANT is *confirmed* if all three criteria hold: (a) point-estimate dominance ratio ∈ [1.4, 2.0]; (b) lower bound of 95% Wilson confidence interval on the AI-positive conversion rate exceeds the AI-skeptical point estimate; (c) Bonferroni-corrected χ² with k = 3 pairwise tests (corrected α = 0.0167) reaches significance for at least the AI-skeptical vs AI-positive comparison. H1 DOMINANT is *refuted* if all three fail. *Inconclusive* otherwise — in which case we report the replication outcome and update §5.0 with the new sample rather than retroactively reclassifying the v0.3.4 result. This rule is fixed prior to replication-sample collection; subsequent rule changes will be reported as exploratory revisions, not as confirmation.
 
 **5/2-exclusion robustness.** The May 2 surge produced 340 of 1,566 analyzed sessions (21.7%). Excluding May 2 (re-run 2026-05-11): AI-positive n=56, k=4 → 7.14%; AI-neutral n=353, k=17 → 4.82%; AI-skeptical n=834, k=27 → 3.24%. **Dominance ratio excluding 5/2 = 7.14 / 3.24 = 2.203** (vs 1.696 with 5/2 included) — the H1 DOMINANT classification not only survives the 5/2 exclusion but strengthens at point estimate. This rules out the alternative explanation that the central finding is driven by a single anomalous traffic day. With smaller N, precision worsens correspondingly; the point-estimate robustness is the relevant signal.
 

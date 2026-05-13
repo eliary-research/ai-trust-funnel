@@ -1,6 +1,6 @@
 # The AI Trust Funnel: A Spectrum-First Onboarding Study
 
-**Draft v0.3.4 — 2026-05-11 (post-empirical-substitution; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported)**
+**Draft v0.3.6 — 2026-05-13 (post-empirical-substitution + reviewer-anticipated polish + §5.0 phone-verify disambiguation; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported; replication confirmation rule prespecified §5.4)**
 
 **Chanmin Kim** · Eliary Inc., Delaware · chanmin@eliary.com
 

@@ -1,6 +1,6 @@
 # The AI Trust Funnel: A Spectrum-First Onboarding Study
 
-**Draft v0.3.5 — 2026-05-12 (post-empirical-substitution + reviewer-anticipated polish; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported; replication confirmation rule prespecified §5.4)**
+**Draft v0.3.4 — 2026-05-11 (post-empirical-substitution; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported)**
 
 **Chanmin Kim** · Eliary Inc., Delaware · chanmin@eliary.com
 
@@ -196,10 +196,19 @@ std_score_ait                       = 1.249
 # Q1 funnel transition
 stage1_starts                       = 3,899
 stage2_analyzed                     = 1,566   # status IN ('submitted','complete')
-stage3_phone_verified               = 88      # session.user_id JOIN-matches prism_user
+stage3_phone_verified               = 88      # session.user_id JOIN-matches prism_user (all-source verified)
+stage3_phone_verified_with_score_ait = 67     # subset that also reached Stage 2 (score_ait populated)
+                                              # 88 - 67 = 21 sessions where the user phone-verified but
+                                              # never produced a score_ait (early-verify, user_id
+                                              # back-population to an abandoned session, or out-of-funnel
+                                              # signup). §5.4 segment-conversion analysis uses 67/1,566
+                                              # (segmentation requires AI-attitude measurement);
+                                              # including the 21 unsegmentable verifiers would inflate
+                                              # whichever segment they were assigned to. Conservative.
 pct_start_to_analyze                = 40.16%
-pct_start_to_verify                 = 2.26%
-pct_complete_to_verify              = 4.28%   # 67/1,566 (THE conversion gap; 67 = phone-verified AND reached analysis)
+pct_start_to_verify_all             = 2.26%   # 88/3,899 (all-source)
+pct_start_to_verify_segmented       = 1.72%   # 67/3,899 (Stage-2-anchored)
+pct_complete_to_verify              = 4.28%   # 67/1,566 (THE conversion gap, segmented)
 
 # Q2 score_ait distribution (0.5-bucket histogram)
 bucket 1.0  → 317 (20.24%)          bucket 4.5 → 54 (3.45%)

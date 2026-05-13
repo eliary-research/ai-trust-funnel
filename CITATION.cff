@@ -7,8 +7,8 @@ message: >-
   it as below.
 type: article
 authors:
-  - given-names: Chanmin
-    family-names: Kim
+  - given-names: Chan Min
+    family-names: Park
     affiliation: Eliary Inc.
     email: chanmin@eliary.com
 abstract: >-
@@ -49,8 +49,8 @@ repository-code: 'https://github.com/eliary-research/ai-trust-funnel'
 preferred-citation:
   type: article
   authors:
-    - given-names: Chanmin
-      family-names: Kim
+    - given-names: Chan Min
+      family-names: Park
       affiliation: Eliary Inc.
   title: >-
     The AI Trust Funnel: Spectrum-First Onboarding for

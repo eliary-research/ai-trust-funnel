@@ -2,7 +2,7 @@
 
 **Draft v0.3.6 — 2026-05-13 (post-empirical-substitution + reviewer-anticipated polish + §5.0 phone-verify disambiguation; 4-round verification applied; Katz log-method ratio CI + Bonferroni-corrected χ² reported; replication confirmation rule prespecified §5.4)**
 
-**Chanmin Kim** · Eliary Inc., Delaware · chanmin@eliary.com
+**Chan Min Park** · Eliary Inc., Delaware · chanmin@eliary.com
 
 > Status: §1–§9 fully drafted. §5 empirical findings substituted from Q0–Q6 (executed 2026-05-11 against `prism` Spanner). Central finding: **H1 DOMINANT branch** per the §5.0 prespecified threshold (segment-conversion dominance ratio 1.696 ≥ 1.5 prespecified; AI-positive 6.41% n=78, AI-skeptical 3.78% n=1,032). Small-N caveat: AI-positive cell yields Wilson 95% CI [2.7%, 14.0%] overlapping the skeptical CI [2.7%, 5.1%]; replication target N ≥ 200 prespecified (§5.4).
 >

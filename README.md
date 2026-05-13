@@ -4,7 +4,7 @@
 
 **Status:** v0.3.4 — empirical findings substituted (Q0–Q6 executed 2026-05-11 against `prism` Spanner; n=3,899 spectrum sessions); 4 rounds of cross-verification applied (Rounds 1-3 polish-completion + Round 4 semantic / statistical-rigor); Katz log-method ratio CI [0.69, 4.18] + Bonferroni-corrected χ² reported. Target arXiv `stat.AP` submission ~2026-05-14 post-endorsement.
 **Target venue:** ICWSM 2027 (full paper) and/or CHI 2027 LBW (4-page early findings).
-**Author:** Chanmin Kim (Eliary Inc.).
+**Author:** Chan Min Park (Eliary Inc.).
 **License:** Paper + data — CC BY 4.0. Code — MIT.
 
 ---
@@ -90,4 +90,4 @@ A `CITATION.cff` file is provided.
 
 ## Contact
 
-Chanmin Kim — chanmin@eliary.com
+Chan Min Park — chanmin@eliary.com

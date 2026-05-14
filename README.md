@@ -74,10 +74,10 @@ This paper documents the author's own platform (Lucid). All quantitative metrics
 ## Citing this work (post-arXiv)
 
 ```bibtex
-@article{kim2026aitrustfunnel,
+@article{park2026aitrustfunnel,
   title         = {The {AI} Trust Funnel: Spectrum-First Onboarding for
                    Multi-{AI} Consumer Products},
-  author        = {Kim, Chanmin},
+  author        = {Park, Chan Min},
   year          = {2026},
   eprint        = {2605.XXXXX},
   archivePrefix = {arXiv},

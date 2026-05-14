@@ -163,7 +163,13 @@ The study qualifies for IRB exemption under the U.S. Common Rule §46.104(d)(4) 
 
 ### 4.4 Statistical Methods
 
-Stage-transition analysis uses **Cox proportional hazards** (Cox, 1972) with `score_ait` segment (skeptical/neutral/positive) as the primary covariate and time-to-abandon as the response. The proportional-hazards assumption is testable via Schoenfeld residuals; if violated, we report stratified Cox or accelerated-failure-time alternatives. Within-spectrum question-index drop clustering uses **Bayesian change-point detection** (Park & Sohn, 2020), implemented in MCMCpack (Martin, Quinn, & Park, 2011), to identify the question position where mid-flow drops concentrate. The four-item AI-attitude composite is reduced to a continuous latent score using **Bayesian ideal-point estimation** (Park, Lee, & Sohn, 2025), which yields posterior intervals around each user's AI-attitude position rather than a single composite.
+Stage-transition analysis uses **Cox proportional hazards** (Cox, 1972) with `score_ait` segment (skeptical/neutral/positive) as the primary covariate and time-to-abandon as the response. The proportional-hazards assumption is testable via Schoenfeld residuals; if violated, we report stratified Cox or accelerated-failure-time alternatives.
+
+Within-spectrum question-index drop clustering uses **Bayesian change-point detection** (Park & Sohn, 2020), invoked *conditionally* — only when the drop pattern across question index is non-monotonic. If the drop is monotonic, ordinary logistic regression replaces it. The conditional use reflects that change-point analysis is informationally additive only where structural shifts would otherwise be hidden by index-linear models.
+
+The four-item AI-attitude composite is reduced to a continuous latent score using **Bayesian ideal-point estimation** (Park, Lee, & Sohn, 2025), applied *only to the four AI-attitude items* and not generalized elsewhere in the analysis. The choice over a sum-score composite is driven by the four items not being parallel measures: ideal-point yields per-user posterior intervals that propagate through the §6 hypothesis-ranking calculations, whereas a sum-score collapses uncertainty into a point estimate.
+
+Both Bayesian variants are implemented in MCMCpack (Martin, Quinn, & Park, 2011).
 
 Segment-comparison conversion analysis (the central claim, §5.4) is a per-segment chi-square test of independence between AI-attitude bucket and phone-verification status, with Bonferroni correction across the three pairwise tests (skeptical-vs-neutral, neutral-vs-positive, skeptical-vs-positive). Confidence intervals on conversion ratios use the Wilson score method (more conservative than Wald at low conversion rates).
 
@@ -386,7 +392,13 @@ The three-stage funnel operationalizes a specific claim from EN6 (Kim, 2026): th
 
 ### 7.4 Methodological note
 
-Two analytic choices in §4.4 deserve brief justification because they are not the conventional defaults in HCI funnel research. First, Bayesian change-point detection (Park & Sohn, 2020) is used in §4.4 *only* if the within-spectrum drop pattern shows a non-monotonic question-position effect; if the drop is monotonic across question index, ordinary logistic regression suffices and we report it instead. Second, ideal-point estimation (Park, Lee, & Sohn, 2025) is used *only* for the four embedded AI-attitude items, replacing a sum-score composite, because the four items are not assumed parallel measures and ideal-point allows a posterior interval per user. The MCMCpack implementation (Martin, Quinn, & Park, 2011) underlies both. We do not import these methods to add complexity; both ordinary logistic and sum-score composites would yield directionally similar findings in §5.4. The Bayesian variants are used because they yield posterior intervals that propagate cleanly through the §6 hypothesis-ranking calculations.
+Two analytic choices in §4.4 deserve brief justification because they are not the conventional defaults in HCI funnel research.
+
+First, Bayesian change-point detection is used *only* if the within-spectrum drop pattern is non-monotonic. Under a monotonic drop, ordinary logistic regression replaces it. The conditional usage is what justifies the method in this paper; we do not adopt it as a blanket preference.
+
+Second, ideal-point estimation is used *only* for the four embedded AI-attitude items, replacing a sum-score composite because the four items are not assumed parallel measures and ideal-point allows a posterior interval per user.
+
+We do not import these methods to add complexity; both ordinary logistic and sum-score composites would yield directionally similar findings in §5.4. The Bayesian variants are used because they yield posterior intervals that propagate cleanly through the §6 hypothesis-ranking calculations.
 
 ---
 
